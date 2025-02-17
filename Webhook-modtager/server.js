@@ -12,18 +12,15 @@ app.post('/webhook', async (req, res) => {
     const { Id, UpdatedAttributes } = VariantChanges[0];
     console.log(`For varianten: ${Id}, er der sket en opdatering i attributten: ${UpdatedAttributes}`);
 
-    // Hvis "Materials" er en af de opdaterede attributter, kaldes Update Materials servicen:
     if (UpdatedAttributes.includes('Materials')) {
       try {
-        // Send en POST-anmodning til Update Materials-service (brug den lokale sti)
-        await axios.post('http://resilient-serenity.up.railway.app/UpdateMaterials', {
-          Id,
-          attributeValue: UpdatedAttributes
-        });
-        
-        console.log('Update Materials-servicen er blevet kaldt.');
+        // Brug den private networking-sti til at kalde din UpdateMaterials-service
+        // Hvis din UpdateMaterials-service kører på port 3001:
+        const url = 'http://resilient-serenity.railway.internal:3001/funktion';
+        await axios.post(url, { Id, attributeValue: UpdatedAttributes });
+        console.log('UpdateMaterials-servicen er blevet kaldt via den private netværkssti.');
       } catch (error) {
-        console.error('Fejl ved kald af Update Materials-servicen:', error);
+        console.error('Fejl ved kald af UpdateMaterials-servicen:', error.response?.data || error.message);
       }
     }
   }
