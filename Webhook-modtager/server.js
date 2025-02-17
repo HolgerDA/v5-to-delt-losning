@@ -19,7 +19,7 @@ app.post('/webhook', async (req, res) => {
         // Eksempel: http://<SERVICE_NAME>.railway.internal:<PORT>/update-materials
         // Brug den interne DNS du ser i Railway: "resilient-serenity.railway.internal" og den port servicen lytter på.
         const serviceHostname = 'resilient-serenity.railway.internal';
-        const servicePort = '3000'; // eller process.env.UPDATE_MATERIALS_PORT, hvis du har sat det dynamisk
+        const servicePort = '3001'; // eller process.env.UPDATE_MATERIALS_PORT, hvis du har sat det dynamisk
         
         // Lav POST-anmodning
         await axios.post(`http://${serviceHostname}:${servicePort}/update-materials`, {
