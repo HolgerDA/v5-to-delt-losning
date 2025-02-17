@@ -1,21 +1,17 @@
+// updateMaterials.js
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-// Endpoint til at modtage "Materials"-opdatering
-app.post('/updateMaterials', (req, res) => {
-  const { Id, UpdatedAttributes } = req.body;
-  console.log(`UpdateMaterials-service modtog data: 
-  - VariantId: ${Id} 
-  - Attributter: ${UpdatedAttributes}`);
-
-  // Her kan du lægge yderligere logik (databaseopdatering, API-kald osv.)
-
-  res.status(200).send(`OK - Modtog ID=${Id} med attributter=${UpdatedAttributes}`);
+app.post('/update-materials', (req, res) => {
+  const { Id, attributeValue } = req.body;
+  console.log(`Update Materials modtaget - Internal ID: ${Id}, Attribute Value: ${attributeValue}`);
+  res.send('Update Materials er kørt');
 });
 
-const PORT = process.env.PORT || 3000;
+// Vælg en anden port end Webhook-modtageren (fx 3001)
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Update Materials Service kører på port ${PORT}`);
+  console.log(`Update Materials-service kører på port ${PORT}`);
 });

@@ -16,7 +16,11 @@ app.post('/webhook', async (req, res) => {
     if (UpdatedAttributes.includes('Materials')) {
       try {
         // Send en POST-anmodning til Update Materials-service (brug den lokale sti)
-        await axios.post('http://localhost:3001/update-materials', { Id, attributeValue: UpdatedAttributes });
+        await axios.post('https://resilient-serenity.up.railway.app/update-materials', {
+          Id,
+          attributeValue: UpdatedAttributes
+        });
+        
         console.log('Update Materials-servicen er blevet kaldt.');
       } catch (error) {
         console.error('Fejl ved kald af Update Materials-servicen:', error);
