@@ -10,8 +10,7 @@ app.post('/webhook', (req, res) => {
   const { VariantChanges } = req.body;
   if (Array.isArray(VariantChanges) && VariantChanges.length > 0) {
     const { Id, UpdatedAttributes } = VariantChanges[0];
-    console.log('Variant Id:', Id);
-    console.log('Updated Attributes:', UpdatedAttributes);
+    console.log(`For varianten: ${Id}, er der sket en opdatering i attributten: ${UpdatedAttributes}`);
   }
 
   // Send svar tilbage
