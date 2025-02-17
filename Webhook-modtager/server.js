@@ -4,8 +4,8 @@ const app = express();
 
 app.use(express.json());
 
-// Brug port 3001 (eller process.env.PORT hvis sat)
-const PORT = process.env.PORT || 3001;
+// Brug PORT fra miljøvariablen eller standardport 8080
+const PORT = process.env.PORT || 8080;
 
 app.post('/webhook', async (req, res) => {
   console.log('--- Modtaget webhook request ---');
@@ -19,8 +19,12 @@ app.post('/webhook', async (req, res) => {
     if (UpdatedAttributes.includes('Materials')) {
       try {
         console.log('Triggerer UpdateMaterials-service...');
-        // Kald UpdateMaterials-servicen via den interne DNS og port 3001
-        const response = await axios.post('http://resilient-serenity.railway.internal:3001/update-materials', {
+        // Da UpdateMaterials-servicen kører på port 8080 ifølge logs, benyt denne port
+        const updateMaterialsPort = 8080;
+        const updateMaterialsUrl = `http://resilient-serenity.railway.internal:${updateMaterialsPort}/update-materials`;
+        console.log(`Kald til UpdateMaterials-service: ${updateMaterialsUrl}`);
+        
+        const response = await axios.post(updateMaterialsUrl, {
           Id,
           attributeValue: UpdatedAttributes
         });

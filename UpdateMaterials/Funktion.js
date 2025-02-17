@@ -3,8 +3,8 @@ const app = express();
 
 app.use(express.json());
 
-// Brug port 3001 (eller process.env.PORT hvis sat)
-const PORT = process.env.PORT || 3001;
+// Brug PORT fra miljøvariablen eller standardport 8080
+const PORT = process.env.PORT || 8080;
 
 app.post('/update-materials', (req, res) => {
   console.log('--- UpdateMaterials-service modtog en request ---');
