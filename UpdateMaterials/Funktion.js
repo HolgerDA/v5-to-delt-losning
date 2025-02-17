@@ -1,17 +1,18 @@
-// UpdateMaterials/Funktion.js
+// funktion.js
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-app.post('/funktion', (req, res) => {
+// Endpoints
+app.post('/update-materials', (req, res) => {
   const { Id, attributeValue } = req.body;
-  console.log(`Funktion modtaget - Internal ID: ${Id}, Attribute Value: ${attributeValue}`);
-  res.send('Funktion er kørt');
+  console.log(`UpdateMaterials-service: modtog ID=${Id}, attributeValue=${attributeValue}`);
+  return res.status(200).send('Update Materials OK');
 });
 
-// Her kører service på en port (f.eks. 3001)
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`UpdateMaterials-service kører på port ${PORT}`);
+// Lyt på IPv6 (bind til "::") og brug den port, som Railway sætter i process.env.PORT
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '::', () => {
+  console.log(`UpdateMaterials-service kører på [::]:${PORT}`);
 });

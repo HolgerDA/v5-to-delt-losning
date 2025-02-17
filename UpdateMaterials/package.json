@@ -1,7 +1,7 @@
 {
   "name": "updatematerials",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Funktion.js",
   "scripts": {
     "start": "node Funktion.js"
   },
