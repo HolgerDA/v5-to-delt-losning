@@ -16,7 +16,7 @@ app.post('/webhook', async (req, res) => {
     if (UpdatedAttributes.includes('Materials')) {
       try {
         // Send en POST-anmodning til Update Materials-service (brug den lokale sti)
-        await axios.post('https://resilient-serenity.up.railway.app/update-materials', {
+        await axios.post('http://resilient-serenity.up.railway.app/UpdateMaterials', {
           Id,
           attributeValue: UpdatedAttributes
         });
