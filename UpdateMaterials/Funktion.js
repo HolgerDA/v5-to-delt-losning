@@ -1,18 +1,22 @@
-// funktion.js
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-// Endpoints
+// Brug port 3001 (eller process.env.PORT hvis sat)
+const PORT = process.env.PORT || 3001;
+
 app.post('/update-materials', (req, res) => {
+  console.log('--- UpdateMaterials-service modtog en request ---');
+  console.log('Request headers:', JSON.stringify(req.headers, null, 2));
+  console.log('Request body:', JSON.stringify(req.body, null, 2));
+  
   const { Id, attributeValue } = req.body;
-  console.log(`UpdateMaterials-service: modtog ID=${Id}, attributeValue=${attributeValue}`);
-  return res.status(200).send('Update Materials OK');
+  console.log(`UpdateMaterials-service: Modtog ID = ${Id}, attributeValue = ${attributeValue}`);
+  
+  res.send('UpdateMaterials-service har behandlet anmodningen');
 });
 
-// Lyt på IPv6 (bind til "::") og brug den port, som Railway sætter i process.env.PORT
-const PORT = process.env.PORT || 3001;
 app.listen(PORT, '::', () => {
   console.log(`UpdateMaterials-service kører på [::]:${PORT}`);
 });
