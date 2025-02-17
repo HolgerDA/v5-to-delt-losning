@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 8080;
 
 app.post('/update-materials', (req, res) => {
   console.log('--- UpdateMaterials-service modtog en request ---');
-  console.log('Request headers:', JSON.stringify(req.headers, null, 2));
   console.log('Request body:', JSON.stringify(req.body, null, 2));
   
   const { Id, attributeValue } = req.body;

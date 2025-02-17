@@ -9,12 +9,11 @@ const PORT = process.env.PORT || 8080;
 
 app.post('/webhook', async (req, res) => {
   console.log('--- Modtaget webhook request ---');
-  console.log('Full payload:', JSON.stringify(req.body, null, 2));
   
   const { VariantChanges } = req.body;
   if (Array.isArray(VariantChanges) && VariantChanges.length > 0) {
     const { Id, UpdatedAttributes } = VariantChanges[0];
-    console.log(`Webhook-modtager: Variant ID = ${Id}, Updated Attributes = ${UpdatedAttributes}`);
+    console.log(`Der er sket en ændring i attributten:${UpdatedAttributes} for Variant ID = ${Id}`);
     
     if (UpdatedAttributes.includes('Materials')) {
       try {
