@@ -12,7 +12,7 @@ app.post('/update-materials', (req, res) => {
 });
 
 // Lyt på IPv6 (bind til "::") og brug den port, som Railway sætter i process.env.PORT
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, '::', () => {
   console.log(`UpdateMaterials-service kører på [::]:${PORT}`);
 });
