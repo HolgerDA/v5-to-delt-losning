@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node scriptRunner.js"
+    "start": "node Funktion.js"
   },
   "keywords": [],
   "author": "",
