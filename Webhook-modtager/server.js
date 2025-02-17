@@ -5,8 +5,9 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 
-// Brug den interne adresse, hvis tilgængelig. Du kan også sætte den som en environment variable.
-const UPDATE_MATERIALS_SERVICE_URL = process.env.UPDATE_MATERIALS_SERVICE_URL || 'http://update-materials.railway.internal:3000';
+// Brug Railway's interne adresse til at kalde Update Materials-servicen.
+// Her antages det, at Update Materials servicen lytter på port 3000.
+const UPDATE_MATERIALS_SERVICE_URL = process.env.UPDATE_MATERIALS_SERVICE_URL || 'http://v4-to-delt-losning.railway.internal:3000';
 
 app.post('/webhook', async (req, res) => {
   console.log('Fuld payload modtaget:', JSON.stringify(req.body, null, 2));
@@ -16,9 +17,9 @@ app.post('/webhook', async (req, res) => {
     const { Id, UpdatedAttributes } = VariantChanges[0];
     console.log(`For varianten: ${Id}, er der sket en opdatering i attributten: ${UpdatedAttributes}`);
 
-    // Hvis "Materials" er opdateret, kaldes den interne service:
     if (UpdatedAttributes.includes('Materials')) {
       try {
+        // Sender data til Update Materials-servicen via den interne adresse
         const response = await axios.post(
           `${UPDATE_MATERIALS_SERVICE_URL}/updateMaterials`,
           { Id, UpdatedAttributes }
