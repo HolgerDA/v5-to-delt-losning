@@ -5,9 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.post('/webhook', (req, res) => {
-  // Log den fulde payload
-  console.log('Fuld payload modtaget:', JSON.stringify(req.body, null, 2));
-
+  
   // Udpak webhook-indholdet (hvis det eksisterer)
   const { VariantChanges } = req.body;
   if (Array.isArray(VariantChanges) && VariantChanges.length > 0) {
