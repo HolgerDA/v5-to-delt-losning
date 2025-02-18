@@ -29,7 +29,7 @@ app.post('/update-materials', async (req, res) => {
 });
 
 /********************************************************
- * Hjælpefunktioner fra Kode 2
+ * Hjælpefunktioner
  ********************************************************/
 
 function formatMaterialList(materialsArray) {
@@ -49,9 +49,16 @@ async function getVariantDataFromPIM(variantId, attributeValue) {
     const response = await axios.get(pimUrl, {
       headers: { Authorization: PIM_API_KEY }
     });
-
+    
+    // Tjek om response.data og response.data.Values er defineret
+    if (response.data && response.data.Values) {
+    console.log('PIM API-kaldet er gennemført succesfuldt.');
+      } else {
+      console.error('PIM API-kaldet returnerede ingen data.');
+        throw new Error('Ingen data modtaget fra PIM API');
+      }
     const { Values } = response.data;
-    console.log('Fuldt PIM-svar:', JSON.stringify(response.data, null, 2));
+    
 
     // Hent ShopifyVariantID og materialer
     const shopifyVariantID = Values?.ShopifyVariantID;
